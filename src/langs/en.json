@@ -1,0 +1,53 @@
+{
+  "source": "https://techmirai-ai.com/",
+  "business": "TechMirai AI",
+  "last_fetched": "2026-06-09",
+  "language": "en",
+  "faqs": [
+    {
+      "id": 1,
+      "question": "What is an AI Agent and how is it different from a chatbot?",
+      "answer": "An AI Agent is a fully autonomous digital employee that can answer questions, take actions, and complete real business tasks — not just reply to FAQs. Unlike a scripted chatbot, a TechMirai AI Agent uses Agentic RAG to read your business documents, then executes operations like booking reservations, updating CRMs, or routing orders, all without human intervention."
+    },
+    {
+      "id": 2,
+      "question": "How much does a TechMirai AI Agent cost in Japan?",
+      "answer": "Three pricing tiers built for the Japanese SME market: the Starter Agent at ¥4,900/month for single-location businesses, the Growth Partner at ¥19,800/month for multi-location and voice-enabled deployments, and a custom Enterprise plan for chains and franchises. One-time setup fees start at ¥49,800."
+    },
+    {
+      "id": 3,
+      "question": "Does the AI support Japanese and English?",
+      "answer": "Yes — multilingual support is built in by default. Our agents speak natural Japanese (including proper 敬語 / keigo) and fluent English, making them ideal for restaurants serving inbound tourists, eCommerce brands selling globally, and clinics treating international and South Asian patients."
+    },
+    {
+      "id": 4,
+      "question": "Can a Voice AI Agent really replace my receptionist or front desk?",
+      "answer": "A TechMirai Voice Agent handles roughly 80% of inbound calls — bookings, FAQs, hours, directions, order status — fully autonomously, 24/7. The remaining 20% (complex complaints, VIP customers, edge cases) is intelligently routed to your human staff with a full transcript and context summary already prepared, so your team works smarter, not harder."
+    },
+    {
+      "id": 5,
+      "question": "How long does it take to launch a TechMirai AI system?",
+      "answer": "Most Starter Agent deployments go live in 2–3 weeks; Growth Partner systems with voice and CRM integration typically launch in 3–4 weeks. We follow a structured engineering pipeline: discovery audit (week 1), build and integration (weeks 2–3), supervised live testing (week 4), then full launch."
+    },
+    {
+      "id": 6,
+      "question": "What industries does TechMirai AI specialize in?",
+      "answer": "We focus on three sectors where 24/7 AI automation has the fastest, most measurable ROI: restaurants (reservations and order-taking), eCommerce (sales concierge and cart recovery), and medical clinics (patient scheduling and FAQ deflection). We also build custom automation for warehouses and physical retail using smart camera systems."
+    },
+    {
+      "id": 7,
+      "question": "Where is TechMirai AI located, and do you serve clients outside Saitama?",
+      "answer": "TechMirai AI is headquartered in Wako-shi, Saitama — the same city as Honda Research Institute Japan — with a senior engineering team based in Bangladesh. We serve clients across the entire Greater Tokyo region (Tokyo, Saitama, Kanagawa, Chiba) and remotely throughout Japan. In-person consultations are standard for clients within a 90-minute travel radius of Wako."
+    },
+    {
+      "id": 8,
+      "question": "Is my business data safe with TechMirai AI?",
+      "answer": "Yes. Every system we deploy is a custom-coded application that lives on your infrastructure or a dedicated private cloud instance — not a shared SaaS database. Your customer data, business documents, and conversation logs are isolated, encrypted at rest, and never used to train third-party models."
+    },
+    {
+      "id": 9,
+      "question": "How do I get started?",
+      "answer": "Book a free 30-minute Strategy Audit. We'll review your current customer-flow bottlenecks, identify where AI automation will deliver the highest ROI, and recommend the right plan. No obligation — you'll leave the call with a concrete action plan whether you hire us or not."
+    }
+  ]
+}

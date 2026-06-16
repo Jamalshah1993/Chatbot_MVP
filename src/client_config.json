@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org",
+  "title": "ClientConfigurationSchema",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "Unique key identifier for the client."
+    },
+    "domain": {
+      "type": "string",
+      "description": "Domain or site_url for host-based config selection.",
+      "pattern": "^(https?://)?([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}(/.*)?$"
+    },
+    "greeting_text": {
+      "type": "string",
+      "description": "Custom opening message for the user."
+    },
+    "theme": {
+      "type": "object",
+      "description": "Visual settings including colors and logo.",
+      "properties": {
+        "primary_color": {
+          "type": "string",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+        },
+        "secondary_color": {
+          "type": "string",
+          "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+        },
+        "logo_url": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": ["primary_color", "logo_url"]
+    },
+    "feature_toggles": {
+      "type": "object",
+      "description": "Toggles for features.",
+      "properties": {
+        "enableBooking": { "type": "boolean" },
+        "enableMap": { "type": "boolean" },
+        "enableWhatsApp": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "languages": {
+      "type": "array",
+      "description": "List of supported language codes (e.g., ['ja', 'en', 'bn']).",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "escalation_contacts": {
+      "type": "object",
+      "properties": {
+        "whatsapp_number": { "type": "string" },
+        "line_url": { "type": "string", "format": "uri" },
+        "fallback_phone": { "type": "string" }
+      }
+    },
+    "faqs_and_rules": {
+      "type": "array",
+      "description": "Preloaded static FAQs or rule sets.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question_or_rule": { "type": "string" },
+          "answer_or_action": { "type": "string" }
+        },
+        "required": ["question_or_rule", "answer_or_action"]
+      }
+    }
+  },
+  "required": [
+    "client_id",
+    "domain",
+    "greeting_text",
+    "theme",
+    "feature_toggles",
+    "languages",
+    "escalation_contacts"
+  ]
+}

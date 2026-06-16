@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot MVP</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div id="app">
+        <aside class="sidebar">
+            <div class="lang-switcher">
+                <button data-lang="en">EN</button>
+                <button data-lang="bn">BN</button>
+                <button data-lang="jp">JP</button>
+            </div>
+            <h3>FAQ Index</h3>
+            <ul id="faq-index"></ul>
+            <h3>Live Stats</h3>
+            <div id="live-stats">
+                <p>Hits: <span id="stat-hits">0</span></p>
+                <p>Escalations: <span id="stat-escalations">0</span></p>
+                <p>Avg Confidence: <span id="stat-avg-confidence">0.00</span></p>
+            </div>
+            <label>
+                <input type="checkbox" id="debug-mode-toggle"> Debug Mode
+            </label>
+        </aside>
+        <main class="chat-window">
+            <div class="messages" id="messages"></div>
+            <form id="chat-form">
+                <input type="text" id="chat-input" placeholder="Type your message...">
+                <button type="submit">Send</button>
+            </form>
+        </main>
+    </div>
+    <script src="src/faq-store.js"></script>
+    <script src="src/engine.js"></script>
+    <script src="src/chat-ui.js"></script>
+
+<script type="module">
+  import { getDB } from './src/faq-store.js';
+  import { findBestMatch } from './src/engine.js';
+  import { addMessage, renderFaqList } from './src/chat-ui.js';
+
+  let currentLang = 'en';
+  renderFaqList(getDB(currentLang));
+
+  function sendMsg() {
+    const input = document.getElementById('chatInput');
+    const query = input.value.trim();
+    if (!query) return;
+    input.value = '';
+    addMessage('user', query);
+    const result = findBestMatch(query, getDB(currentLang));
+    if (result.conf >= 0.25) {
+      addMessage('bot', result.faq.a, result);
+    } else {
+      addMessage('bot', 'No match found — escalating to a human agent.', result);
+    }
+  }
+
+  // Bind AFTER DOM is ready
+  document.getElementById('sendBtn').addEventListener('click', sendMsg);
+  document.getElementById('chatInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') sendMsg();
+  });
+</script>
+</body>
+</html>
