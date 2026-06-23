@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Toggleable Window Container</title>
+  <title>AI Chatbot UI</title>
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-  <header>
-    <h1>Toggleable Window Container Example</h1>
+  <header class="chatbot-header">
+    <h1>AI Chatbot</h1>
   </header>
   <div class="container">
-    <button id="toggleButton">Toggle Window</button>
-    <div class="window-container" id="windowContainer">
-      <h2>Window Content</h2>
-      <p>This is the content of the toggleable window.</p>
+    <div id="chatbox" class="glassmorphism">
+      <div id="messages"></div>
+      <input type="text" id="userInput" placeholder="Type a message...">
+      <button id="sendButton">Send</button>
     </div>
   </div>
 
