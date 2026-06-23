@@ -3,68 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chatbot MVP</title>
-    <link rel="stylesheet" href="styles/main.css">
+    <title>Chatbot Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .messages {
+            padding: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+            background-color: #f9f9fa;
+        }
+        .message {
+            margin-bottom: 10px;
+        }
+        .user-message {
+            text-align: right;
+        }
+        .bot-message {
+            text-align: left;
+        }
+        .input-container {
+            padding: 15px;
+        }
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            outline: none;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <div id="app">
-        <aside class="sidebar">
-            <div class="lang-switcher">
-                <button data-lang="en">EN</button>
-                <button data-lang="bn">BN</button>
-                <button data-lang="jp">JP</button>
-            </div>
-            <h3>FAQ Index</h3>
-            <ul id="faq-index"></ul>
-            <h3>Live Stats</h3>
-            <div id="live-stats">
-                <p>Hits: <span id="stat-hits">0</span></p>
-                <p>Escalations: <span id="stat-escalations">0</span></p>
-                <p>Avg Confidence: <span id="stat-avg-confidence">0.00</span></p>
-            </div>
-            <label>
-                <input type="checkbox" id="debug-mode-toggle"> Debug Mode
-            </label>
-        </aside>
-        <main class="chat-window">
-            <div class="messages" id="messages"></div>
-            <form id="chat-form">
-                <input type="text" id="chat-input" placeholder="Type your message...">
-                <button type="submit">Send</button>
-            </form>
-        </main>
+    <div class="chat-container">
+        <div class="messages" id="messages"></div>
+        <div class="input-container">
+            <input type="text" id="messageInput" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</bu
+        </div>
     </div>
-    <script src="src/faq-store.js"></script>
-    <script src="src/engine.js"></script>
-    <script src="src/chat-ui.js"></script>
 
-<script type="module">
-  import { getDB } from './src/faq-store.js';
-  import { findBestMatch } from './src/engine.js';
-  import { addMessage, renderFaqList } from './src/chat-ui.js';
+    <script>
+        function addMessage(role, text) {
+            const messagesDiv = document.getElementB
+            const messageElement = document.createElement('div');
+            messageElement.className = `message ${ro
+            messageElement.textContent = text;
+            messagesDiv.appendChild(messageElement);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
 
-  let currentLang = 'en';
-  renderFaqList(getDB(currentLang));
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const messageText = input.value.trim();
+            if (messageText === '') return;
 
-  function sendMsg() {
-    const input = document.getElementById('chatInput');
-    const query = input.value.trim();
-    if (!query) return;
-    input.value = '';
-    addMessage('user', query);
-    const result = findBestMatch(query, getDB(currentLang));
-    if (result.conf >= 0.25) {
-      addMessage('bot', result.faq.a, result);
-    } else {
-      addMessage('bot', 'No match found — escalating to a human agent.', result);
-    }
-  }
+            addMessage('user-message', messageText);
 
-  // Bind AFTER DOM is ready
-  document.getElementById('sendBtn').addEventListener('click', sendMsg);
-  document.getElementById('chatInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') sendMsg();
-  });
-</script>
+            // Simulate bot response
+            setTimeout(() => {
+                addMessage('bot-message', 'This is a response from Mirai.');
+            }, 1000);
+
+            input.value = '';
+        }
+    </script>
 </body>
 </html>
