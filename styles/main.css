@@ -64,3 +64,32 @@ header::before {
 .window-container.open {
   display: block;
 }
+
+.chatbot-header {
+  background: linear-gradient(135deg, #6dd5ed, #2196F3);
+  color: white;
+  padding: 1rem 0;
+  text-align: center;
+  border-radius: 8px 8px 0 0;
+}
+
+.chatbot-bubble {
+  background-color: #6dd5ed;
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  max-width: 80%;
+}
+
+.user-bubble {
+  background-color: #2196F3;
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  max-width: 80%;
+  text-align: right;
+}
