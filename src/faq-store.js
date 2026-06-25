@@ -13,7 +13,7 @@ export function getDB(lang) {
     "source": "https://techmirai-ai.com/",
     "business": "TechMirai AI",
     "last_fetched": "2026-06-09",
-    "languages": ["en", "ja", "bn"],
+    "languages": ["en", "jp", "bn"],
     "faqs": [
       {
         "id": 1,
@@ -21,7 +21,7 @@ export function getDB(lang) {
           "question": "What is an AI Agent and how is it different from a chatbot?",
           "answer": "An AI Agent is a fully autonomous digital employee that can answer questions, take actions, and complete real business tasks — not just reply to FAQs. Unlike a scripted chatbot, a TechMirai AI Agent uses Agentic RAG to read your business documents, then executes operations like booking reservations, updating CRMs, or routing orders, all without human intervention."
         },
-        "ja": {
+        "jp": {
           "question": "AIエージェントとは何ですか？チャットボットとどう違うのですか？",
           "answer": "AIエージェントは、FAQに答えるだけでなく、質問への回答・具体的な行動・実際の業務タスクの完遂を自律的に行うデジタル社員です。スクリプト型チャットボットとは異なり、TechMirai AIエージェントはAgentic RAGを活用してお客様のビジネス文書を読み込み、予約受付・CRM更新・注文ルーティングなどの業務を人手を介さず実行します。"
         },
@@ -36,7 +36,7 @@ export function getDB(lang) {
           "question": "How much does a TechMirai AI Agent cost in Japan?",
           "answer": "Three pricing tiers built for the Japanese SME market: the Starter Agent at ¥4,900/month for single-location businesses, the Growth Partner at ¥19,800/month for multi-location and voice-enabled deployments, and a custom Enterprise plan for chains and franchises. One-time setup fees start at ¥49,800."
         },
-        "ja": {
+        "jp": {
           "question": "日本でTechMirai AIエージェントを導入するといくらかかりますか？",
           "answer": "日本の中小企業向けに設計された3つの料金プランをご用意しています。単店舗向けのスターターエージェントが月額¥4,900、複数店舗や音声対応が必要な場合はグロースパートナーが月額¥19,800、チェーン店やフランチャイズ向けのエンタープライズプランはカスタム見積もりとなります。初期設定費用は¥49,800からとなります。"
         },
@@ -51,7 +51,7 @@ export function getDB(lang) {
           "question": "Does the AI support Japanese and English?",
           "answer": "Yes — multilingual support is built in by default. Our agents speak natural Japanese (including proper 敬語 / keigo) and fluent English, making them ideal for restaurants serving inbound tourists, eCommerce brands selling globally, and clinics treating international and South Asian patients."
         },
-        "ja": {
+        "jp": {
           "question": "AIは日本語と英語に対応していますか？",
           "answer": "はい、多言語対応は標準搭載されています。当社のエージェントは自然な日本語（適切な敬語を含む）と流暢な英語で対応可能です。インバウンド観光客を受け入れる飲食店、グローバルに販売するECブランド、外国人・南アジア系患者を診察するクリニックに最適です。"
         },
@@ -66,7 +66,7 @@ export function getDB(lang) {
           "question": "Can a Voice AI Agent really replace my receptionist or front desk?",
           "answer": "A TechMirai Voice Agent handles roughly 80% of inbound calls — bookings, FAQs, hours, directions, order status — fully autonomously, 24/7. The remaining 20% (complex complaints, VIP customers, edge cases) is intelligently routed to your human staff with a full transcript and context summary already prepared, so your team works smarter, not harder."
         },
-        "ja": {
+        "jp": {
           "question": "音声AIエージェントは本当に受付スタッフの代わりになりますか？",
           "answer": "TechMiraiの音声エージェントは、予約・よくある質問・営業時間・道案内・注文状況など、インバウンドコールの約80%を24時間365日、完全自律で対応します。残りの20%（複雑なクレーム・VIP顧客・イレギュラー対応）は、会話のトランスクリプトとコンテキストの要約が事前に用意された状態で人間のスタッフに自動転送されるため、チームはより賢く、効率的に働けます。"
         },
@@ -81,7 +81,7 @@ export function getDB(lang) {
           "question": "How long does it take to launch a TechMirai AI system?",
           "answer": "Most Starter Agent deployments go live in 2–3 weeks; Growth Partner systems with voice and CRM integration typically launch in 3–4 weeks. We follow a structured engineering pipeline: discovery audit (week 1), build and integration (weeks 2–3), supervised live testing (week 4), then full launch."
         },
-        "ja": {
+        "jp": {
           "question": "TechMiraiのAIシステムの導入にはどのくらいの期間がかかりますか？",
           "answer": "スターターエージェントの多くは2〜3週間で稼働開始できます。音声対応とCRM連携を含むグロースパートナーシステムは通常3〜4週間です。構造化されたエンジニアリングプロセスに沿って進め、ディスカバリー監査（第1週）、構築・統合（第2〜3週）、監視下での本番テスト（第4週）を経て、フルローンチとなります。"
         },
@@ -96,7 +96,7 @@ export function getDB(lang) {
           "question": "What industries does TechMirai AI specialize in?",
           "answer": "We focus on three sectors where 24/7 AI automation has the fastest, most measurable ROI: restaurants (reservations and order-taking), eCommerce (sales concierge and cart recovery), and medical clinics (patient scheduling and FAQ deflection). We also build custom automation for warehouses and physical retail using smart camera systems."
         },
-        "ja": {
+        "jp": {
           "question": "TechMirai AIはどの業界を専門としていますか？",
           "answer": "24時間365日のAI自動化によって最も速く、最も測定可能なROIが期待できる3つの分野に注力しています。飲食業（予約受付・注文取り）、eコマース（販売サポート・カゴ落ち対策）、医療クリニック（患者スケジューリング・FAQ対応）です。スマートカメラシステムを用いた倉庫・実店舗向けのカスタム自動化も対応しています。"
         },
@@ -111,7 +111,7 @@ export function getDB(lang) {
           "question": "Where is TechMirai AI located, and do you serve clients outside Saitama?",
           "answer": "TechMirai AI is headquartered in Wako-shi, Saitama — the same city as Honda Research Institute Japan — with a senior engineering team based in Bangladesh. We serve clients across the entire Greater Tokyo region (Tokyo, Saitama, Kanagawa, Chiba) and remotely throughout Japan. In-person consultations are standard for clients within a 90-minute travel radius of Wako."
         },
-        "ja": {
+        "jp": {
           "question": "TechMirai AIの所在地はどこですか？埼玉県外のクライアントにも対応していますか？",
           "answer": "TechMirai AIは、本田技術研究所（HRI-JP）と同じ埼玉県和光市に本社を置き、シニアエンジニアリングチームはバングラデシュを拠点としています。首都圏全域（東京・埼玉・神奈川・千葉）のクライアントへの対応に加え、日本全国にリモートでサービスを提供しています。和光市から90分以内のクライアントには対面でのコンサルティングも対応しています。"
         },
@@ -126,7 +126,7 @@ export function getDB(lang) {
           "question": "Is my business data safe with TechMirai AI?",
           "answer": "Yes. Every system we deploy is a custom-coded application that lives on your infrastructure or a dedicated private cloud instance — not a shared SaaS database. Your customer data, business documents, and conversation logs are isolated, encrypted at rest, and never used to train third-party models."
         },
-        "ja": {
+        "jp": {
           "question": "TechMirai AIに預けたビジネスデータは安全ですか？",
           "answer": "はい。導入するすべてのシステムは、共有SaaSデータベースではなく、お客様のインフラまたは専用プライベートクラウド上で動作するカスタムコードのアプリケーションです。顧客データ・ビジネス文書・会話ログは完全に分離・暗号化（保存時）されており、サードパーティのモデル学習に使用されることは一切ありません。"
         },
@@ -141,7 +141,7 @@ export function getDB(lang) {
           "question": "How do I get started?",
           "answer": "Book a free 30-minute Strategy Audit. We'll review your current customer-flow bottlenecks, identify where AI automation will deliver the highest ROI, and recommend the right plan. No obligation — you'll leave the call with a concrete action plan whether you hire us or not."
         },
-        "ja": {
+        "jp": {
           "question": "どうすれば始められますか？",
           "answer": "無料の30分ストラテジー監査をご予約ください。現在の顧客フローのボトルネックを確認し、AI自動化で最も高いROIが見込める箇所を特定し、最適なプランをご提案します。契約の義務は一切ありません。ご依頼いただかない場合でも、具体的なアクションプランを持ってお電話を終えていただけます。"
         },

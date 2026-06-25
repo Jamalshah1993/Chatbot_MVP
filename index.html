@@ -1,23 +1,383 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Chatbot UI</title>
-  <link rel="stylesheet" href="styles/main.css">
+   <!-- FAQ data store -->
+  <script src="faq-store.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MiraiBot — AI Assistant</title>
+  <link rel="stylesheet" href="styles/main.css" />
 </head>
 <body>
-  <header class="chatbot-header">
-    <h1>AI Chatbot</h1>
-  </header>
-  <div class="container">
-    <div id="chatbox" class="glassmorphism">
-      <div id="messages"></div>
-      <input type="text" id="userInput" placeholder="Type a message...">
-      <button id="sendButton">Send</button>
-    </div>
-  </div>
 
-  <script src="scripts/main.js"></script>
+<div class="chat-shell">
+
+  <!-- ── Header ─────────────────────────────────────────── -->
+  <header class="chat-header">
+    <div class="header-glass">
+      <div class="chat-header__avatar" aria-hidden="true">🤖</div>
+
+      <div class="chat-header__info">
+        <div class="chat-header__name" id="bot-name">MiraiBot</div>
+        <div class="chat-header__status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span id="bot-status">Online</span>
+        </div>
+      </div>
+
+      <div class="chat-header__actions">
+        <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn"        id="btn-bn" onclick="setLang('bn')">বাং</button>
+        <button class="lang-btn"        id="btn-ja" onclick="setLang('ja')">日</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Messages ───────────────────────────────────────── -->
+  <main class="chat-messages" id="chat-messages" aria-live="polite" aria-label="Chat messages">
+    <div class="chat-divider" id="divider-today">Today</div>
+
+    <div class="message message--bot">
+      <div class="message__avatar" aria-hidden="true">🤖</div>
+      <div class="message__body">
+        <div class="message__bubble" id="welcome-text">
+          Hey! I'm Mirai, your AI assistant! Ask me anything! I'm here to help.
+        </div>
+        <div class="message__meta" id="welcome-time"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ── Suggestion chips ───────────────────────────────── -->
+  <div class="chat-suggestions" id="suggestions" role="group" aria-label="Quick replies"></div>
+
+  <!-- ── Input area ─────────────────────────────────────── -->
+  <footer class="chat-input-area">
+    <!-- Attachment preview strip -->
+    <div class="attach-previews" id="attach-previews"></div>
+
+    <div class="chat-input-row">
+      <!-- Hidden real file picker -->
+      <input
+        type="file"
+        id="file-input"
+        class="file-input-hidden"
+        multiple
+        accept="image/*,.pdf,.doc,.docx,.txt"
+        aria-label="Attach files"
+      />
+
+      <textarea
+        class="chat-input"
+        id="chat-input"
+        rows="1"
+        placeholder="Type a message…"
+        aria-label="Message input"
+      ></textarea>
+
+      <div class="input-actions">
+        <!-- Attachment button triggers file picker -->
+        <button class="attach-btn" id="attach-btn" aria-label="Attach file" title="Attach file">
+          📎
+        </button>
+
+        <!-- Send button -->
+        <button class="send-btn" id="send-btn" aria-label="Send message" disabled>
+          <svg class="send-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* ── i18n ─────────────────────────────────────────────────── */
+const i18n = {
+  en: {
+    htmlLang: 'en',
+    botName: 'MiraiBot',
+    status: 'Online',
+    today: 'Today',
+    welcome: "Hey! I'm Mirai, your AI assistant. Ask me anything! I'm here to help.",
+    placeholder: 'Type a message…',
+    chips: ['🏢 What is Techmirai?', '💼 What services do you offer?', '📞 How do I contact support?', '💰 What are your pricing plans?'],    typingLabel: 'Mirai is typing…',
+    userAvatar: '🧑',
+    fallback:   "I don't have an answer for that yet. Try rephrasing or ask something else!",
+  },
+  bn: {
+    htmlLang: 'bn',
+    botName: 'গ্ভবিষ্যৎ',
+    status: 'অনলাইন',
+    today: 'আজ',
+    welcome: 'হ্যালো! আমি গ্ভবিষ্যৎ, আপনার AI সহকারী। যেকোনো প্রশ্ন করুন — আমি সাহায্য করতে এখানে আছি।',
+    placeholder: 'একটি বার্তা লিখুন…',
+    chips: ['🏢 টেকমিরাই কী?', '💼 আপনারা কী সেবা দেন?', '📞 সাপোর্টে কীভাবে যোগাযোগ করব?', '💰 মূল্য পরিকল্পনা কী?'],    typingLabel: 'গ্ভবিষ্যৎ टाइप कर रहा है…',
+    userAvatar: '🧑',
+    fallback:  'এই প্রশ্নের উত্তর এখনো আমার কাছে নেই। অন্যভাবে জিজ্ঞেস করুন!',
+  },
+  jp: {
+    htmlLang: 'jp',
+    botName: 'ミライボット',
+    status: 'オンライン',
+    today: '今日',
+    welcome: 'こんにちは！AIアシスタントのミライボットです。何でもお気軽にどうぞ。',
+    placeholder: 'メッセージを入力…',
+    chips: ['🏢 テックミライとは？', '💼 どんなサービスがありますか？', '📞 サポートへの連絡方法は？', '💰 料金プランを教えて'],    
+    typingLabel: 'グリーンボットが入力中…',
+    userAvatar: '🧑',
+    fallback:  'その質問への回答はまだありません。別の言葉でお試しください！',
+  },
+};
+
+
+/* ── State ───────────────────────────────────────────────── */
+let lang   = 'en';
+let respIdx = 0;
+let pendingFiles = []; // { name, emoji }
+
+/* ── DOM ─────────────────────────────────────────────────── */
+const messagesEl  = document.getElementById('chat-messages');
+const inputEl     = document.getElementById('chat-input');
+const sendBtn     = document.getElementById('send-btn');
+const suggestionsEl = document.getElementById('suggestions');
+const attachBtn   = document.getElementById('attach-btn');
+const fileInput   = document.getElementById('file-input');
+const previewsEl  = document.getElementById('attach-previews');
+
+/* ── FAQ matcher ─────────────────────────────────────────── */
+function findFaqAnswer(userText) {
+  const input = userText.toLowerCase().trim();
+  const t = i18n[lang];
+  const faqLang = lang === 'ja' ? 'jp' : lang;
+
+  let bestMatch = null;
+  let bestScore = 0;
+
+  DB.faqs.forEach(faq => {
+    const entry = faq[faqLang];
+    if (!entry) return;
+
+    const question = entry.question.toLowerCase();
+
+    // Split both into words and check overlap both ways
+    const inputWords    = input.split(/\s+/);
+    const questionWords = question.split(/\s+/);
+
+    let score = 0;
+
+    inputWords.forEach(word => {
+      // check if any part of the question contains this word
+      if (question.includes(word)) score += 2;
+    });
+
+    questionWords.forEach(word => {
+      // check if input contains any word from the question
+      if (input.includes(word)) score += 1;
+    });
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestMatch = entry;
+    }
+  });
+
+  return bestScore > 0 ? bestMatch.answer : t.fallback;
+}
+
+/* ── Language ────────────────────────────────────────────── */
+function setLang(l) {
+  lang = l;
+  const t = i18n[l];
+  document.documentElement.lang = t.htmlLang;
+  document.getElementById('bot-name').textContent    = t.botName;
+  document.getElementById('bot-status').textContent  = t.status;
+  document.getElementById('divider-today').textContent = t.today;
+  document.getElementById('welcome-text').textContent  = t.welcome;
+  inputEl.placeholder = t.placeholder;
+  renderChips(t.chips);
+  ['en','bn','jp'].forEach(k => {
+    document.getElementById('btn-'+k).classList.toggle('active', k === l);
+  });
+}
+
+function renderChips(chips) {
+  suggestionsEl.innerHTML = '';
+  chips.forEach(label => {
+    const btn = document.createElement('button');
+    btn.className = 'suggestion-chip';
+    btn.textContent = label;
+    btn.onclick = () => {
+      inputEl.value = label.replace(/^\S+\s/, '');
+      updateSendState();
+      sendMessage();
+    };
+    suggestionsEl.appendChild(btn);
+  });
+}
+
+/* ── Time ────────────────────────────────────────────────── */
+function nowTime() {
+  const locale = lang === 'ja' ? 'ja-JP' : lang === 'bn' ? 'bn-BD' : 'en-US';
+  return new Date().toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
+}
+
+/* ── Messaging ───────────────────────────────────────────── */
+function fileEmoji(name) {
+  const ext = name.split('.').pop().toLowerCase();
+  if (['jpg','jpeg','png','gif','webp','svg'].includes(ext)) return '🖼️';
+  if (ext === 'pdf') return '📄';
+  if (['doc','docx'].includes(ext)) return '📝';
+  return '📎';
+}
+
+function appendMessage(text, role, files) {
+  const t = i18n[lang];
+  const isUser = role === 'user';
+  const wrap = document.createElement('div');
+  wrap.className = `message message--${isUser ? 'user' : 'bot'}`;
+
+  const avatar = document.createElement('div');
+  avatar.className = 'message__avatar';
+  avatar.setAttribute('aria-hidden','true');
+  avatar.textContent = isUser ? t.userAvatar : '🤖';
+
+  const body = document.createElement('div');
+  body.className = 'message__body';
+
+  if (text) {
+    const bubble = document.createElement('div');
+    bubble.className = 'message__bubble';
+    bubble.textContent = text;
+    body.appendChild(bubble);
+  }
+
+  // file badges
+  if (files && files.length) {
+    files.forEach(f => {
+      const badge = document.createElement('div');
+      badge.className = 'attachment-badge';
+      badge.textContent = `${f.emoji} ${f.name}`;
+      body.appendChild(badge);
+    });
+  }
+
+  const meta = document.createElement('div');
+  meta.className = 'message__meta';
+  meta.textContent = nowTime();
+  body.appendChild(meta);
+
+  wrap.appendChild(avatar);
+  wrap.appendChild(body);
+  messagesEl.appendChild(wrap);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function showTyping() {
+  const wrap = document.createElement('div');
+  wrap.className = 'typing-wrapper';
+  wrap.id = 'typing-indicator';
+  const avatar = document.createElement('div');
+  avatar.className = 'message__avatar';
+  avatar.setAttribute('aria-hidden','true');
+  avatar.textContent = '🤖';
+  const ind = document.createElement('div');
+  ind.className = 'typing-indicator';
+  ind.setAttribute('aria-label', i18n[lang].typingLabel);
+  ind.innerHTML = '<span></span><span></span><span></span>';
+  wrap.appendChild(avatar);
+  wrap.appendChild(ind);
+  messagesEl.appendChild(wrap);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function removeTyping() {
+  const el = document.getElementById('typing-indicator');
+  if (el) el.remove();
+}
+
+function sendMessage() {
+  const text  = inputEl.value.trim();
+  const files = [...pendingFiles];
+  if (!text && !files.length) return;
+
+  appendMessage(text, 'user', files);
+  inputEl.value = '';
+  pendingFiles  = [];
+  previewsEl.innerHTML = '';
+  updateSendState();
+  autoResize();
+
+  showTyping();
+
+  // Look up answer from faq-store.js DB
+  const reply = findFaqAnswer(text);
+  const delay = 900 + Math.random() * 700;
+
+  setTimeout(() => {
+    removeTyping();
+    appendMessage(reply, 'bot');
+  }, delay);
+}
+
+/* ── Attachments ─────────────────────────────────────────── */
+attachBtn.addEventListener('click', () => fileInput.click());
+
+fileInput.addEventListener('change', () => {
+  Array.from(fileInput.files).forEach(file => {
+    const emoji = fileEmoji(file.name);
+    pendingFiles.push({ name: file.name, emoji });
+    addPreviewChip(file.name, emoji);
+  });
+  fileInput.value = '';
+  updateSendState();
+});
+
+function addPreviewChip(name, emoji) {
+  const item = document.createElement('div');
+  item.className = 'attach-preview-item';
+  const label = document.createElement('span');
+  label.textContent = `${emoji} ${name.length > 24 ? name.slice(0,22)+'…' : name}`;
+  const removeBtn = document.createElement('button');
+  removeBtn.textContent = '✕';
+  removeBtn.setAttribute('aria-label', `Remove ${name}`);
+  removeBtn.onclick = () => {
+    pendingFiles = pendingFiles.filter(f => f.name !== name);
+    item.remove();
+    updateSendState();
+  };
+  item.appendChild(label);
+  item.appendChild(removeBtn);
+  previewsEl.appendChild(item);
+}
+
+/* ── Input helpers ───────────────────────────────────────── */
+function updateSendState() {
+  sendBtn.disabled = inputEl.value.trim() === '' && pendingFiles.length === 0;
+}
+
+function autoResize() {
+  inputEl.style.height = 'auto';
+  inputEl.style.height = Math.min(inputEl.scrollHeight, 150) + 'px';
+}
+
+inputEl.addEventListener('input', () => { updateSendState(); autoResize(); });
+
+inputEl.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    if (!sendBtn.disabled) sendMessage();
+  }
+});
+
+sendBtn.addEventListener('click', sendMessage);
+
+/* ── Init ────────────────────────────────────────────────── */
+document.getElementById('welcome-time').textContent = nowTime();
+setLang('en');
+</script>
+
 </body>
 </html>
